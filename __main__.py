@@ -1,12 +1,8 @@
 import vk_scrapper
+import social_graph
 
 if __name__ == '__main__':
-    mutual = vk_scrapper.get_mutual_friends("fegor2004", "13arton")
-    if mutual != -1:
-        for i in mutual:
-            name = vk_scrapper.get_name(i)
-            print(f"{name['first_name']} {name['last_name']} (id: {i})")
-        # print(mutual)
-    else:
-        print("No mutual friends")
-    print("Success")
+    all_friends = social_graph.get_all_friends("fegor2004", 2)
+    print(len(all_friends))
+    for person in all_friends:
+        print(person)
