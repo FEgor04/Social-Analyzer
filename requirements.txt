@@ -1,3 +1,4 @@
 requests
-# networkx # For graph visualization
+networkx # For graph visualization
 numpy
+matplotlib

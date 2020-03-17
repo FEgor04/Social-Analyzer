@@ -12,7 +12,7 @@ jobs:
       - python/install-deps
       - python/save-cache
       - run:
-          command: coverage run -m pytest
+          command: python -m pytest --verbose
           name: Test
 
 workflows:
