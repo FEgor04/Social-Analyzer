@@ -1,19 +1,21 @@
-version: 2.1
+version: 2
 
 orbs:
   python: circleci/python@0.2.1
 
 jobs:
   build-and-test:
+    parallelism: 2
     executor: python/default
     steps:
+      -
       - checkout
       - python/load-cache
       - python/install-deps
       - python/save-cache
       - run:
-          command: python -m pytest --verbose
-          name: Test
+          name: Run tests
+          command: circleci tests glob **/tests/*.py | circleci tests split --split-by=timings | xargs python -m pytest --reuse-db --junitxml=test_results/results.xml
 
 workflows:
   main:
