@@ -1,4 +1,5 @@
+pytest
 requests
-networkx # For graph visualization
+networkx
 numpy
 matplotlib
