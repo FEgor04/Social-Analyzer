@@ -1,11 +1,12 @@
 from typing import Union, Set
+
 import requests
+
 import settings
 
 
 def get_id_by_domain(target: str) -> int:
-    """
-    Get target's id by domain
+    """Get target's id by domain
     :param target: VK domain
     :return target's ID by his domain
     """
@@ -23,8 +24,7 @@ def get_id_by_domain(target: str) -> int:
 
 
 def get_friends(target: str, count: int = 10000) -> Union[int, list]:
-    """
-
+    """Get target's friends
     :param target: VK id
     :param count: count of friends you want to get
     :return: dict with target's friends
@@ -48,8 +48,7 @@ def get_friends(target: str, count: int = 10000) -> Union[int, list]:
 
 
 def get_mutual_friends(target1: str, target2: str) -> Union[Set[int], int]:
-    """
-    Get mutual friends of target1 and target2
+    """Get mutual friends of target1 and target2
     :param target1: Target1
     :param target2: Target2
     :return: List of mutual friends
@@ -64,8 +63,7 @@ def get_mutual_friends(target1: str, target2: str) -> Union[Set[int], int]:
 
 
 def get_name(target):
-    """
-
+    """Get target's first name, last name, and etc.
     :param target: VK id
     :return target's name
     """

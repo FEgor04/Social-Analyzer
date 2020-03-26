@@ -12,8 +12,14 @@ jobs:
       - python/install-deps
       - python/save-cache
       - run:
-          command: python -m pytest --verbose
-          name: Test
+          command: pip install pytest coverage
+          name: Install coverage and pytest
+      - run:
+          command: coverage run -m pytest
+          name: Run tests with coverage
+      - run:
+          command: coverage report
+          name: Coverage report
 
 workflows:
   main:

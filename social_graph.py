@@ -1,14 +1,14 @@
-import matplotlib.pyplot as plt
 import queue
+
+import networkx as nx
 import numpy as np
 from numpy import unique
-import networkx as nx
+
 import vk_scrapper
 
 
 def get_all_friends(target: str, cnt: int = 2) -> np.ndarray:
-    """
-    Get all friends, and friends of their friends and etc. It will just return list of them. There will be no connections between them
+    """Get all friends, and friends of their friends and etc. It will just return list of them. There will be no connections between them
     :param target: Target
     :param cnt: How much friends of friends do you want to get
     :return: list with friends of friend and so on
@@ -31,7 +31,7 @@ def get_all_friends(target: str, cnt: int = 2) -> np.ndarray:
                 was_l = 1
                 try:
                     was_l = was[person]
-                except:
+                except KeyError:
                     was_l = 0
                 if was_l != 1:
                     q.put(person)
@@ -42,12 +42,17 @@ def get_all_friends(target: str, cnt: int = 2) -> np.ndarray:
 
 
 def get_friends_nx_graph(target: str, cnt: int = 1) -> nx.Graph():
+    """Build graph with target's friends and target's friends's friends and so on
+    :param target: Target
+    :param cnt: How many steps
+    :return: graph
+    """
     was = {target: 1}
     cnt -= 1
     pred_cnt = {target: 0}
     q = queue.Queue()
     q.put(target)
-    color_arr=['red', 'orange', 'yellow', 'green', 'blue', 'purple']
+    color_arr = ['red', 'orange', 'yellow', 'green', 'blue', 'purple']
     graph = nx.Graph()
     while not q.empty():
         now = q.get()
@@ -66,7 +71,7 @@ def get_friends_nx_graph(target: str, cnt: int = 1) -> nx.Graph():
                 was_l = 1
                 try:
                     was_l = was[person]
-                except:
+                except KeyError:
                     was_l = 0
                 if was_l != 1:
                     q.put(person)
