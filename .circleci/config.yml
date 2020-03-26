@@ -12,14 +12,21 @@ jobs:
       - python/install-deps
       - python/save-cache
       - run:
-          command: pip install pytest coverage
-          name: Install coverage and pytest
+          name: Install Allure CLI
+          command: npm install -g allure-commandline --save-dev
       - run:
-          command: coverage run -m pytest
-          name: Run tests with coverage
+          name: Install pytest
+          command: pip install pytest
       - run:
-          command: coverage report
-          name: Coverage report
+          name: Run tests
+          command: python -m pytest --alluredir ~/raw_test_results_jsons
+      - run:
+          name: Report
+          command: allure generate -c ~/raw_test_results_jsons -o  ~/test-reports
+      - run:
+          path: test-reports
+          destination: test-reports
+          when: always
 
 workflows:
   main:
