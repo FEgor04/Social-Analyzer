@@ -1,23 +1,31 @@
-version: 2
+workflows:
+  version: 2
 
-orbs:
-  python: circleci/python@0.2.1
+  test_workflow:
+    jobs:
+      - test
 
 jobs:
-  build-and-test:
+  test:
+    docker:
+      - image: circleci/python:3.8
+    working-directory: ~/repo
     parallelism: 2
-    executor: python/default
-    steps:
-      -
+    stesp:
       - checkout
-      - python/load-cache
-      - python/install-deps
-      - python/save-cache
+      - run:
+          name: Install dependencies
+          command: pip install -r requirements.txt
+      - run:
+          name: Install coverage
+          command: pip install -r coverage
       - run:
           name: Run tests
-          command: circleci tests glob **/tests/*.py | circleci tests split --split-by=timings | xargs python -m pytest --reuse-db --junitxml=test_results/results.xml
+          command: |
+            TEST_FILES="$(circleci tests glob "tests/test_*.py" | circleci tests split --split-by=timings)"
+            coverage run -m pytest $TEST_FILES
+      - run:
+          name: Coverage report
+          command: coverage report
 
-workflows:
-  main:
-    jobs:
-      - build-and-test
+
