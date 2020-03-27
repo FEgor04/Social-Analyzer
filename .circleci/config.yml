@@ -18,7 +18,7 @@ jobs:
           command: pip install -r requirements.txt
       - run:
           name: Install coverage
-          command: pip install -r coverage
+          command: pip install coverage
       - run:
           name: Run tests
           command: |
