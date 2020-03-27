@@ -56,14 +56,13 @@ def get_friends_nx_graph(target: str, cnt: int = 1) -> nx.Graph():
     graph = nx.Graph()
     while not q.empty():
         now = q.get()
-        # print(pred_cnt[now], end=" ")
         if pred_cnt[now] == cnt + 1:
             break
         friends = vk_scrapper.get_friends(now)
         if isinstance(friends, int):
-            print(f"target: {now}. profile closed")
-        else:
-            print(f"target: {now}. friends_cnt = {len(friends)}")  # DEBUG
+            # print(f"target: {now}. profile closed")
+            if now == target:
+                return -1  # Target's profile closed
         if friends != -1:
             for person in friends:
                 if person != -1:
