@@ -11,6 +11,7 @@ jobs:
     runs-on: [ubuntu-latest]
     env:
       vk_api: ${{ secrets.vk_api }}
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
     steps:
       - uses: actions/checkout@master
       - uses: actions/setup-python@v1
@@ -23,7 +24,11 @@ jobs:
         run: pip install pytest
       - name: Install coverage
         run: pip install coverage
+      - name: Install codecov
+        run: pip install codecov
       - name: Run tests
         run: coverage run -m pytest
       - name: Tests report
         run: coverage report
+      - name: Codecov
+        run: codecov
