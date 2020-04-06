@@ -6,7 +6,7 @@ import vk_scrapper
 
 @pytest.mark.parametrize("target, cnt, deviation, expected", [
     ("fegor2004", 1, -1, 1),
-    ("fegor2004", 2, 500, 9171),
+    ("fegor2004", 2, 2000, 11500),
     ("dasdasdsadasd", 12, -1, 0)
 ])
 def test_get_all_friends(target, cnt, deviation, expected):
