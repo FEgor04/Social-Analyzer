@@ -20,6 +20,9 @@ jobs:
           name: Install coverage
           command: pip install coverage
       - run:
+          name: Install codecov
+          command: pip install codecov
+      - run:
           name: Run tests
           command: |
             TEST_FILES="$(circleci tests glob "tests/_test*.py" | circleci tests split --split-by=timings)"
