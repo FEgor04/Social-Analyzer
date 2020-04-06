@@ -27,5 +27,8 @@ jobs:
       - run:
           name: Coverage report
           command: coverage report
-
+      - run:
+          name: Codecov report
+          command: codecov
+          when: on_success
 
